@@ -1,0 +1,2 @@
+#imprimir error en php - pdo
+echo "Connection failed: " . $e->getMessage();
