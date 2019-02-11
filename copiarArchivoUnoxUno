@@ -1,0 +1,25 @@
+<?php
+#obtenemos los origenes de las imagenes
+
+$origen ="../../inicial/".$oficinaid."/".$idantiguo.".png";
+   $destino ="../../final/".$oficinaid;
+   
+   #funcion para copiar siempre verificando si existe el origen
+   function copia_imagen ($ruta_origen,$ruta_destino,$idfinal){
+                if (file_exists($ruta_origen)) {
+                    chmod($ruta_destino, 0777);//importante dar permisos
+                    $archivo_destino=$ruta_destino."/".$idfinal.".png"; //idfinal porque en la nueva carpeta tendra un id distinto autogenerado
+                    if (copy($ruta_origen,$archivo_destino)) {
+                         echo "El fichero ha sido copiado";
+                    } else {
+                         echo " no es una ruta, Se ha producido un error al intentar copiar el fichero";
+                    }
+                }else{
+                  echo "$ruta_origen no existe";
+                }
+        }
+
+        #llamando a la funcion
+        copia_imagen($origen,$destino,$last_id);
+ 
+ ?>
