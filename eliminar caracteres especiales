@@ -1,0 +1,6 @@
+tomado de : http://phpfiddle.org/lite/code/0sg-314
+
+<?php
+$string = "hel!£$%^&*()_+{}:\| @~<_>?¬`-=[];#,./lo";
+echo preg_replace("/\W|_/", "", $string);
+?>
