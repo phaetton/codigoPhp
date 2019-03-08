@@ -1,0 +1,86 @@
+//boton para modal
+
+ <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" onClick="activar()">Agregar</button>
+
+//funcion activar
+<script language="javascript">
+
+
+   function activar(){
+      document.getElementById('guardar').disabled = false;
+    }
+
+
+</script>
+
+
+//modal
+  <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="lbl_Tipoinfluenciador">Tipo de ladron</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label id="lbl_Tipo">Tipo</label>
+                        <select class="selectpicker form-control" id="pro_id" name="pro_id" data-width='100%' >
+                                <option value="Personal">Personal</option>
+                                 <option value="Personal">bancario</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="agregarProducto()" class="btn btn-default" data-dismiss="modal" >Agregar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    
+    
+function RefrescaProducto(){
+    var ip = [];
+    var i = 0;
+    $('.iProduct').each(function(index, element) {
+        i++;
+        ip.push({ id_pro : $(this).val() });
+    });
+    
+    var ipt=JSON.stringify(ip);
+    $('#ListaPro').val(encodeURIComponent(ipt));
+}
+var resultado;
+ 
+var numero1 = 0;
+
+
+function agregarProducto() {
+    numero1+=1;
+    var sel = $('#pro_id').find(':selected').val();
+    var text = $('#pro_id').find(':selected').text();
+    var sptext = text.split();
+    var newtr = '<tr class="item"  data-id="'+sel+'">';
+    newtr = newtr + '<td> <input class="form-control" id="total" name="total"  value="'+numero1+'" readonly/></td>';
+    newtr = newtr + '<td> <input class="form-control" id="nombreinfluenciador'+numero1+'" name="nombreinfluenciador'+numero1+'" value=""  placeholder="Nombre"  required /></td>';
+    newtr = newtr + '<td><input  type="email" class="form-control" id="emailinfluenciador'+numero1+'" name="emailinfluenciador'+numero1+'" value=""  placeholder="Email"  required /></td>';
+    newtr = newtr + '<td><input  class="form-control"  id="Telefonoinfluenciador'+numero1+'" name="Telefonoinfluenciador'+numero1+'" value=""  placeholder="Telefono" data-validate-length-range="8,20" data-inputmask="\'mask\' : \'99999999\'" required /></td>';
+    newtr = newtr + '<td><input  class="form-control"  id="Telefonoinfluenciado'+numero1+'" name="Telefonoinfluenciado'+numero1+'" value=""  placeholder="Telefono" data-validate-length-range="8,20" data-inputmask="\'mask\' : \'99999999\'" required /></td>';
+    newtr = newtr + '<td><button type="button" class="btn btn-danger btn-xs remove-item"><i class="fa fa-times"></i></button></td></tr>';
+    $('#ProSelected').append(newtr); 
+    
+    RefrescaProducto();        
+    $('.remove-item').off().click(function(e) {
+        $(this).parent('td').parent('tr').remove();
+        if ($('#ProSelected tr.item').length == 0)
+            $('#ProSelected .no-item').slideDown(300); 
+        RefrescaProducto();
+    }); 
+
+   $('.iProduct').off().change(function(e) {
+        RefrescaProducto();
+   });
+}
+</script>
