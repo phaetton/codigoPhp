@@ -1,0 +1,141 @@
+codigos para cambiar tamaño de imagen
+
+ /*      $source=$filepath; // archivo de origen     
+           $imagen= getimagesize($source);    //Sacamos la información
+       echo    $ancho= $imagen[0];              //Ancho
+        echo   $alto= $imagen[1];               //Alto        
+
+            if($ancho >= $alto)
+            {
+                elseif($ancho<2000  and $ancho>1000)
+                {
+                   $ancho=round($ancho / 2);
+                   $alto=round($alto / 2);
+                }
+                elseif($ancho<3000)
+                {
+                   $ancho=round($ancho / 3);
+                   $alto=round($alto / 3);
+                }
+                    elseif($ancho<4000)
+                    {
+                       $ancho=round($ancho / 4);
+                       $alto=round($alto / 40);
+                    }
+                elseif($ancho<5000)
+                {
+                   $ancho=round($ancho / 5);
+                   $alto=round($alto / 5);
+                } 
+                elseif($ancho<8000)
+                {
+                   $ancho=round($ancho / 8);
+                   $alto=round($alto / 8);
+                }
+                elseif($ancho<16000)
+                {
+                   $ancho=round($ancho / 16);
+                   $alto=round($alto / 16);
+                }
+                 elseif($ancho<32000)
+                {
+                   $ancho=round($ancho / 32);
+                   $alto=round($alto / 32);
+                }
+                elseif($ancho<64000)
+                {
+                   $ancho=round($ancho / 64);
+                   $alto=round($alto / 64);
+                }else{
+                  $ancho=500;
+                   $alto=500;
+                }
+            }
+            else
+            {
+                elseif(($alto<2000) and  ($alto>1000))
+                {
+                   $ancho=round($ancho / 2);
+                   $alto=round($alto / 2);
+                }
+                elseif($alto<3000)
+                {
+                   $ancho=round($ancho / 3);
+                   $alto=round($alto / 3);
+                }
+                elseif($alto<4000)
+                {
+                   $ancho=round($ancho / 4);
+                   $alto=round($alto / 4);
+                }
+                elseif($alto<5000)
+                {
+                   $ancho=round($ancho / 5);
+                   $alto=round($alto / 5);
+                } 
+                elseif($alto<8000)
+                {
+                   $ancho=round($ancho / 8);
+                   $alto=round($alto / 8);
+                }
+                elseif($alto<16000)
+                {
+                   $ancho=round($ancho / 16);
+                   $alto=round($alto / 16);
+                }
+                 elseif($alto<32000)
+                {
+                   $ancho=round($ancho / 32);
+                   $alto=round($alto / 32);
+                }
+                elseif($alto<64000)
+                {
+                   $ancho=round($ancho / 64);
+                   $alto=round($alto / 64);
+                }else{
+                  $ancho=500;
+                   $alto=500;
+                }
+            }    
+           
+             $dirSubida=$carpeta;    
+
+           $dest=$filepath; // archivo de destino 
+           $width_d=$ancho; // ancho de salida 
+           $height_d=$alto; // alto de salida 
+            list($width_s, $height_s, $type, $attr)= getimagesize($source, $info2); // obtengo información del archivo 
+           $gd_s= imagecreatefrompng($source); // crea el recurso gd para el origen 
+           $gd_d= imagecreatetruecolor($width_d, $height_d); // crea el recurso gd para la salida 
+            imagecopyresampled($gd_d, $gd_s, 0, 0, 0, 0, $width_d, $height_d, $width_s, $height_s); // redimensiona 
+            imagejpeg($gd_d, $dest); // graba 
+            // Se liberan recursos 
+            imagedestroy($gd_s); 
+            imagedestroy($gd_d); 
+
+
+/****************************************************
+
+ $file = $last_id.'.png';
+
+$target_dir = $carpeta;
+//$target_file = $target_dir.$idmentorizado.($_ARCHIVOS ["archivo"]["nombre"]);
+
+if (move_uploaded_file($file, $target_dir)) {
+   $status = 1;
+}
+######################################################
+
+//define('UPLOAD_DIR', '../fotomentorizado/'.$idoficinamentorx.'/'.$last_id.'/');
+/*
+if (!file_exists($UPLOAD_DIR)) {
+    mkdir($carpeta, 0777, true);
+}
+
+  //$img = $imdata;
+  #$img = str_replace('data:image/png;base64,', '', $img);
+  #$img = str_replace(' ', '+', $img);
+  #$data = base64_decode($img);
+  $file = UPLOAD_DIR .$last_id.'.png';
+  $success = file_put_contents($file, $data);
+  print $success ? $file : 'Unable to save the file.';
+*/
