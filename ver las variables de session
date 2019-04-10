@@ -1,0 +1,6 @@
+<?php 
+foreach($_SESSION as $key =>$valor)
+{
+echo "variable : $key Valor: $valor <br>";
+}
+ ?>
