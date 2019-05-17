@@ -1,0 +1,5 @@
+//para encontrar la diferencia de las fechas SELECT DATEDIFF('2017-1-15', '2016-12-31');
+
+   /* SELECT DATEDIFF(CURDATE() , (select MAX(Fecha) //curdate es para la fecha actual
+                             from cliente 
+                             where cliente.id = '1'));*/
