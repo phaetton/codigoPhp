@@ -1,0 +1,8 @@
+//sustituye un valor en una cadena directamente en la base de datos, tener cuidado con los simbolos, no siempre son los mismos
+
+UPDATE estudiantes SET Apellido = REPLACE(Apellido, "Ã¡", 'á');
+UPDATE estudiantes SET Apellido = REPLACE(Apellido, "Ã©", 'é');
+UPDATE estudiantes SET Apellido = REPLACE(Apellido, "Ã³", 'ó');
+UPDATE estudiantes SET Apellido = REPLACE(Apellido, "Ãº", 'ú');
+UPDATE estudiantes SET Apellido = REPLACE(Apellido, "Ã±", 'ñ');
+UPDATE estudiantes SET Apellido = REPLACE(Apellido, "Ã‘", 'Ñ');
