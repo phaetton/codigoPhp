@@ -1,0 +1,7 @@
+//permite hacer una consulta y cambiar un valor en el vuelo, no actualiza la base de datos
+<?php
+$cadena = "Esta es la cadena de ejemplo para sustituir un caracter";
+echo $cadena;
+$resultado = str_replace("a", "A", $cadena);
+echo "La cadena resultante es: " . $resultado;
+?>
