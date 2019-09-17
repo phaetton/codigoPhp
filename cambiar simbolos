@@ -1,0 +1,6 @@
+function mejorartexto($frase) {
+  $phrase  = $frase;
+$healthy = array("Ã±","Ã³","Ã©","Ã¡","Ã­","Ãº");
+$yummy   = array("ñ","ó","é","á","í","ú");
+return $nombrecurso = str_replace($healthy, $yummy, $phrase);
+}
