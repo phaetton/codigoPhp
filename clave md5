@@ -1,0 +1,10 @@
+
+                        $caracteres = '0123456789abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                        $caractereslong = strlen($caracteres);
+                        $clave = '';
+                        for($i = 0; $i < 8; $i++) {
+                          $clave .= $caracteres[rand(0, $caractereslong - 1)];
+                      }
+                      $clave.=date("z");
+                      $clave.=date("Y");
+                      $contrasena = md5($clave);
