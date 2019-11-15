@@ -1,0 +1,120 @@
+//documento principal
+
+ <!-- oficinas -->
+
+                                            <div class="item form-group">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="oficina"><?php echo $loficinas ;?>
+                                                <span class="required">*</span></label>
+                                                <?php echo $oficinaErr;?>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                                    <input type="checkbox" id="oficina" name="oficina1" value=1 <?php if (isset($oficina) && $oficina==1) echo "checked";?>>
+                                                    Managua
+                                                </label>
+                                                    <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                                    <input type="checkbox" id="oficina" name="oficina2" value=2  <?php if (isset($oficina) && $oficina==2) echo "checked";?>>
+                                                    Merida
+                                                </label>
+                                                    <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                                    <input type="checkbox" id="oficina" name="oficina3" value=3 <?php if (isset($oficina) && $oficina==3) echo "checked";?>>
+                                                    Honduras
+                                                </label>
+                                                </div>
+                                            </div>
+
+                                            <!-- / oficinas -->
+                                            
+//form.js
+
+$(function() {
+
+    $('#formulario').submit(function(event) {
+        event.preventDefault();
+        var form_data = new FormData();
+        form_data.append('Nombre', $('#nombre').val())
+        form_data.append('Apellido', $('#apellido').val())
+        form_data.append('Cedula', $('#cedula').val())
+        form_data.append('Direccion', $('#direccion').val())
+        form_data.append('Sexo', $('#sexo').val())
+        form_data.append('Telefono', $('#celular').val())
+        form_data.append('FechaNac', $('#fechanac').val())
+        form_data.append('Contrasena', $('#contrasena').val())
+        form_data.append('Id_Global', $('#idglobal').val())
+        form_data.append('Email', $('#email').val())
+        form_data.append('Id_Estado', 1)
+
+
+
+        $('#oficina:checked').each(
+            function() {
+                form_data.append('oficina' + $(this).val(), $(this).val())
+            }
+        );
+
+        $.ajax({
+            url: '../server/create_user.php',
+            dataType: "json",
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: form_data,
+            type: 'POST',
+            success: (data) => {
+                if (data.msg == "OK") {
+                    alert('Se ha añadido el usuario exitosamente')
+
+
+                } else {
+                    alert(data.msg)
+                }
+            },
+            error: function() {
+                alert("error en la comunicación con nuestro sistema de registro");
+            }
+        })
+    })
+});
+
+//crear usuario
+<?php
+ session_start();
+ require('conector.php');
+ $con = new ConectorBD('localhost', 'root', '');
+ if ($con->initConexion('basebd')=='OK') 
+ { 
+    //proceso
+    foreach ($_POST as $clave=>$valor)
+    {
+        if ($clave=='Contrasena') { 
+        $data[$clave] = "'".password_hash($valor, PASSWORD_DEFAULT)."'";
+        }elseif (strpos($clave, 'oficina') !== false) {
+            $dato['Id_Oficina'] = "'".$valor."'";
+            $con->insertData('administradoresoficinas', $dato);
+        }else{
+            $data[$clave] = "'".$valor."'";
+        }
+    }
+    if ($con->insertData('administradores', $data)) {
+        $response['msg']="Ok";
+        //obtengo el id
+        $resultado_consulta = $con->consultar(['administradores'],['Id_Administrador'], 'WHERE Email="'.$_POST['Email'].'"');
+        $fila = $resultado_consulta->fetch_assoc();
+        $dato['Id_Administrador']= $fila['Id_Administrador'];
+        //administrador oficina
+        foreach ($_POST as $clave=>$valor){
+            if (strpos($clave, 'oficina') !== false) {
+                $dato['Id_Oficina'] = "'".$valor."'";
+                $con->insertData('administradoresoficinas', $dato);
+            }else{
+                $data[$clave] = "'".$valor."'";
+            } 
+        }
+    }else {
+        $response['msg']= "No se pudo agregar el administrador";
+    }    
+    //fin proceso
+ }else {
+    $response['msg'] = "No se pudo conectar a la Base de Datos"; 
+ }
+ echo json_encode($response);
+ ?>
